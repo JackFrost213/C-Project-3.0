@@ -17,8 +17,7 @@ namespace KP{
 
 	//remove all elements from vector that tracks words and their occurrences
 	void clear(std::vector<constants::entry>  &entries){
-		vector<entry> new_arr;
-		entries = new_arr;
+		entries.clear();
 	}
 
 	//return how many unique words are in the vector
@@ -103,45 +102,6 @@ namespace KP{
 		}
 	}
 
-	bool compareEntriesA(const entry& x, const entry& y){
-		string x_word_upper = x.word;
-		toUpper(x_word_upper);
-
-		string y_word_upper = y.word;
-				toUpper(y_word_upper);
-
-		if(x_word_upper.compare(y_word_upper) > 0)
-			return false;
-
-		//if(x.word.compare(y.word) <= 0)
-
-		return true;
-	}
-
-	bool compareEntriesD(const entry& x, const entry& y){
-		string x_word_upper = x.word;
-				toUpper(x_word_upper);
-
-				string y_word_upper = y.word;
-						toUpper(y_word_upper);
-
-				if(x_word_upper.compare(y_word_upper) <= 0)
-					return false;
-
-		//if(x.word.compare(y.word) > 0)
-
-		return true;
-	}
-
-	bool compareEntriesNumOccurences(const entry& x, const entry& y){
-			if(x.number_occurences > y.number_occurences)
-				return true;
-
-			//if(x.word.compare(y.word) > 0)
-
-			return false;
-		}
-
 	/*
 	 * Sort entries based on so enum value.
 	 * Please provide a solution that sorts according to the enum
@@ -153,16 +113,22 @@ namespace KP{
 			return;
 		}
 
-		if(so == ASCENDING){
-			std::sort(entries.begin(), entries.end(), compareEntriesA);
+		else if(so == ASCENDING){
+			std::sort(entries.begin(), entries.end(), [](const entry &x, const entry &y){
+					return x.word_uppercase < y.word_uppercase;
+			});
 		}
 
-		if(so == DESCENDING){
-			std::sort(entries.begin(), entries.end(), compareEntriesD);
+		else if(so == DESCENDING){
+			std::sort(entries.begin(), entries.end(), [](const entry &x, const entry &y){
+				return x.word_uppercase > y.word_uppercase;
+			});
 				}
 
-		if(so == NUMBER_OCCURRENCES){
-			std::sort(entries.begin(), entries.end(), compareEntriesNumOccurences);
+		else if(so == NUMBER_OCCURRENCES){
+			std::sort(entries.begin(), entries.end(), [](const entry &x, const entry &y){
+				return x.number_occurences > y.number_occurences;
+			});
 		}
 	}
 }
