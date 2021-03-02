@@ -6,6 +6,7 @@
  */
 
 #include "../includes/fileio.h"
+#include "../includes/utilities.h"
 
 using namespace std;
 using namespace constants;
@@ -26,7 +27,7 @@ bool openFile(fstream& myfile, const string& myFileName,
 }
 
 /*iff myfile is open then close it*/
-void closeFile(std::fstream& myfile){
+void closeFile(fstream& myfile){
 	if(myfile.is_open()){
 		myfile.close();
 	}
@@ -40,7 +41,7 @@ void closeFile(std::fstream& myfile){
  * 			FAIL_NO_ARRAY_DATA if there are 0 entries in the vector entries
  * 			SUCCESS if all data is written and outputfilename closes OK
  * */
-int writetoFile(vector<entry>  &entries, const std::string &outputfilename){
+int writetoFile(vector<entry>  &entries, const string &outputfilename){
 	fstream myfile;
 	ios_base::openmode mode = ios_base::out;
 	bool check = openFile(myfile, outputfilename, mode);
@@ -52,7 +53,7 @@ int writetoFile(vector<entry>  &entries, const std::string &outputfilename){
 		return FAIL_NO_ARRAY_DATA;
 
 	for(entry e : entries){
-		myfile << e.word + " " << e.number_occurences << endl;
+		myfile << e.word + " " + intToString(e.number_occurences) << endl;
 	}
 	closeFile(myfile);
 

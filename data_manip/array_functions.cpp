@@ -14,6 +14,7 @@ using namespace std;
 using namespace constants;
 
 namespace KP{
+
 	//remove all elements from vector that tracks words and their occurrences
 	void clear(std::vector<constants::entry>  &entries){
 		vector<entry> new_arr;
